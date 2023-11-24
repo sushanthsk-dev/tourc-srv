@@ -18,7 +18,7 @@ App.get("/rest/v1/tours", (req,res) => {
 ])
 });
 
-App.listen(3000, () => {
-  console.log("Listening on the port 3000");
+App.listen(8080, () => {
+  console.log("Listening on the port 8080");
 })
 

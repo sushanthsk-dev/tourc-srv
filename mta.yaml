@@ -1,0 +1,31 @@
+_schema-version: "3.1"
+ID: Tour
+description: Tour Portal.
+version: 2.0.2
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+  appname: Tour-${space}
+build-parameters:
+  before-all:
+  - builder: custom
+    timeout: 45m00s
+    commands:
+    - npm install --verbose
+modules:
+- name: Tour-srv
+  type: nodejs
+  path: .
+  parameters:
+    disk-quota: 1024M
+    memory: 1024M
+    idle-routes:
+      - route:  https://${space}-srv-idle.${default-domain}
+    routes:
+      - route:  https://${space}-srv.${default-domain}
+  build-parameters:
+    builder: npm-ci
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${protocol}://${routes/0/route}
